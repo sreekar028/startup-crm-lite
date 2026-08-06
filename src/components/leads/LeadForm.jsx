@@ -22,6 +22,7 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
     company: '',
     email: '',
     phone: '',
+    value: '',
     status: 'New',
     source: 'Website',
   });
@@ -36,6 +37,7 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
         company: initialData.company || '',
         email: initialData.email || '',
         phone: initialData.phone || '',
+        value: initialData.value !== undefined ? initialData.value : '',
         status: initialData.status || 'New',
         source: initialData.source || 'Website',
       });
@@ -62,6 +64,10 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
       newErrors.email = 'Email address is invalid';
     }
 
+    if (formData.value !== '' && isNaN(Number(formData.value))) {
+      newErrors.value = 'Value must be a valid number';
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -69,7 +75,10 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      onSubmit(formData);
+      onSubmit({
+        ...formData,
+        value: formData.value === '' ? 0 : Number(formData.value),
+      });
     }
   };
 
@@ -179,6 +188,26 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
               />
             </div>
 
+            {/* Deal Value */}
+            <div className="space-y-1">
+              <label htmlFor="value" className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                Deal Value (₹)
+              </label>
+              <input
+                type="number"
+                id="value"
+                name="value"
+                min="0"
+                value={formData.value}
+                onChange={handleChange}
+                className={`w-full px-3.5 py-2.5 text-sm bg-slate-50 dark:bg-slate-800/50 border rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all ${
+                  errors.value ? 'border-danger focus:ring-danger/20 focus:border-danger' : 'border-slate-200 dark:border-slate-700'
+                }`}
+                placeholder="e.g. 50000"
+              />
+              {errors.value && <p className="text-[11px] font-semibold text-danger">{errors.value}</p>}
+            </div>
+
             {/* Source */}
             <div className="space-y-1">
               <label htmlFor="source" className="text-xs font-semibold text-slate-500 dark:text-slate-400">
@@ -200,7 +229,7 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
             </div>
 
             {/* Status Dropdown */}
-            <div className="space-y-1 sm:col-span-2">
+            <div className="space-y-1">
               <label htmlFor="status" className="text-xs font-semibold text-slate-500 dark:text-slate-400">
                 Sales Pipeline Status
               </label>
