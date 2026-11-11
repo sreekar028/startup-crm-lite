@@ -31,10 +31,7 @@ const navItems = [
 ];
 
 /**
- * Modern Sidebar component with frosted glass panel and adaptive responsiveness:
- * - Mobile: Drawer that slides in.
- * - Tablet: Compact icon rail.
- * - Desktop: Full branded navigation panel.
+ * Modern Sidebar component with dark green (dark mode) and light green (light mode).
  */
 function Sidebar({ isOpen, onClose }) {
   const { isDarkMode } = useTheme();
@@ -48,7 +45,7 @@ function Sidebar({ isOpen, onClose }) {
       {/* Mobile backdrop */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/70 backdrop-blur-md z-40 md:hidden"
+          className="fixed inset-0 bg-black/75 backdrop-blur-md z-40 md:hidden"
           onClick={handleClose}
         />
       )}
@@ -56,17 +53,17 @@ function Sidebar({ isOpen, onClose }) {
       <aside
         className={`fixed top-0 bottom-0 left-0 z-50 flex flex-col transition-transform duration-300 ease-in-out md:static md:translate-x-0 
           w-64 md:w-20 lg:w-64 ${isOpen ? 'translate-x-0' : '-translate-x-full'} ${
-            isDarkMode ? 'bg-[#0d0d14]/95 text-zinc-100 border-r border-white/[0.07]' : 'bg-white/95 text-zinc-900 border-r border-zinc-200'
+            isDarkMode ? 'bg-[#051912]/95 text-emerald-50 border-r border-emerald-900/40' : 'bg-[#F7FEFA]/95 text-emerald-950 border-r border-emerald-200'
           } backdrop-blur-xl`}
       >
         {/* Brand header */}
         <div
           className={`flex items-center justify-between px-5 py-4 md:px-0 md:justify-center lg:justify-between lg:px-5 border-b ${
-            isDarkMode ? 'border-white/[0.07]' : 'border-zinc-200'
+            isDarkMode ? 'border-emerald-900/40' : 'border-emerald-200'
           }`}
         >
           <div className="flex items-center gap-3 md:flex-col md:gap-1.5 lg:flex-row lg:gap-3">
-            <div className="p-2.5 rounded-2xl bg-gradient-to-tr from-primary to-primary-light shadow-lg shadow-primary/30 min-w-[38px] min-h-[38px] flex items-center justify-center">
+            <div className="p-2.5 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 shadow-lg shadow-emerald-500/30 min-w-[38px] min-h-[38px] flex items-center justify-center">
               <Rocket size={20} className="text-white" />
             </div>
             <div className="md:hidden lg:block text-left md:text-center lg:text-left">
@@ -74,15 +71,15 @@ function Sidebar({ isOpen, onClose }) {
                 Startup CRM
               </p>
               <div className="flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                <p className="text-[10px] font-bold tracking-widest text-primary uppercase">NEXT-GEN CRM</p>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <p className="text-[10px] font-bold tracking-widest text-emerald-400 uppercase">EMERALD EDITION</p>
               </div>
             </div>
           </div>
           <button
             onClick={handleClose}
             className={`md:hidden flex min-h-[40px] min-w-[40px] items-center justify-center rounded-xl p-2 transition ${
-              isDarkMode ? 'text-zinc-400 hover:text-white hover:bg-white/5' : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'
+              isDarkMode ? 'text-emerald-300 hover:text-white hover:bg-emerald-900/40' : 'text-emerald-700 hover:text-emerald-950 hover:bg-emerald-100'
             }`}
             aria-label="Close sidebar menu"
           >
@@ -92,7 +89,7 @@ function Sidebar({ isOpen, onClose }) {
 
         {/* Section label */}
         <div className="px-5 pt-6 pb-2 md:hidden lg:block">
-          <p className={`text-[10px] font-bold uppercase tracking-widest ${isDarkMode ? 'text-zinc-500' : 'text-zinc-400'}`}>
+          <p className={`text-[10px] font-bold uppercase tracking-widest ${isDarkMode ? 'text-emerald-400/60' : 'text-emerald-800/60'}`}>
             Workspace
           </p>
         </div>
@@ -108,10 +105,10 @@ function Sidebar({ isOpen, onClose }) {
               className={({ isActive }) =>
                 `flex flex-row md:flex-col lg:flex-row items-center gap-3 md:gap-1 lg:gap-3 px-3 md:px-1 lg:px-3 py-3 rounded-2xl transition-all group min-h-[46px] ${
                   isActive
-                    ? 'sidebar-active text-white'
+                    ? 'sidebar-active text-white font-bold'
                     : isDarkMode
-                    ? 'text-zinc-400 hover:text-zinc-100 hover:bg-white/[0.04]'
-                    : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100'
+                    ? 'text-emerald-200/80 hover:text-white hover:bg-emerald-900/30'
+                    : 'text-emerald-800 hover:text-emerald-950 hover:bg-emerald-100/70'
                 }`
               }
             >
@@ -124,8 +121,8 @@ function Sidebar({ isOpen, onClose }) {
                         isActive
                           ? 'bg-primary text-white shadow-md shadow-primary/30'
                           : isDarkMode
-                          ? 'bg-white/[0.04] text-zinc-400 group-hover:text-white group-hover:bg-white/[0.08]'
-                          : 'bg-zinc-100 text-zinc-600 group-hover:text-zinc-900 group-hover:bg-zinc-200'
+                          ? 'bg-emerald-900/30 text-emerald-300 group-hover:text-white group-hover:bg-emerald-800/50'
+                          : 'bg-emerald-100/80 text-emerald-800 group-hover:text-emerald-950 group-hover:bg-emerald-200'
                       }`}
                     >
                       <Icon size={17} />
@@ -134,13 +131,13 @@ function Sidebar({ isOpen, onClose }) {
                       <p
                         className={`truncate text-sm font-bold tracking-tight ${
                           isActive
-                            ? isDarkMode ? 'text-white' : 'text-zinc-900'
-                            : isDarkMode ? 'text-zinc-300 group-hover:text-white' : 'text-zinc-700 group-hover:text-zinc-900'
+                            ? isDarkMode ? 'text-white' : 'text-emerald-950'
+                            : isDarkMode ? 'text-emerald-200 group-hover:text-white' : 'text-emerald-800 group-hover:text-emerald-950'
                         }`}
                       >
                         {item.name}
                       </p>
-                      <p className={`truncate text-[10px] md:hidden lg:block ${isDarkMode ? 'text-zinc-500' : 'text-zinc-400'}`}>
+                      <p className={`truncate text-[10px] md:hidden lg:block ${isDarkMode ? 'text-emerald-400/60' : 'text-emerald-700/70'}`}>
                         {item.subtitle}
                       </p>
                     </div>
@@ -158,8 +155,8 @@ function Sidebar({ isOpen, onClose }) {
         <div
           className={`m-3.5 rounded-2xl p-4 md:hidden lg:block border relative overflow-hidden ${
             isDarkMode
-              ? 'bg-gradient-to-b from-white/[0.05] to-white/[0.02] border-white/[0.08]'
-              : 'bg-gradient-to-b from-primary/5 to-primary/[0.02] border-primary/20'
+              ? 'bg-gradient-to-b from-emerald-900/40 to-emerald-950/20 border-emerald-800/40'
+              : 'bg-gradient-to-b from-emerald-100/80 to-emerald-50 border-emerald-200'
           }`}
         >
           <div className="flex items-center gap-3">
@@ -168,14 +165,14 @@ function Sidebar({ isOpen, onClose }) {
             </div>
             <div>
               <p className="text-xs font-bold leading-tight">AI Sales Copilot</p>
-              <p className="text-[10px] text-zinc-400 mt-0.5">Automated lead scoring</p>
+              <p className="text-[10px] text-emerald-600 dark:text-emerald-300/70 mt-0.5">Automated lead scoring</p>
             </div>
           </div>
         </div>
 
         {/* Build version */}
         <div className="px-5 pb-4 text-center md:hidden lg:block">
-          <p className="text-[10px] font-semibold text-zinc-600 dark:text-zinc-500 tracking-wider">v2.0 • NEO-OBSIDIAN</p>
+          <p className="text-[10px] font-semibold text-emerald-600/70 dark:text-emerald-400/50 tracking-wider">v2.0 • EMERALD MOSS</p>
         </div>
       </aside>
     </>

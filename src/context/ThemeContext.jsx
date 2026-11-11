@@ -3,58 +3,58 @@ import useLocalStorage from '../hooks/useLocalStorage';
 
 export const THEMES = [
   {
+    id: 'emerald',
+    name: 'Emerald Forest',
+    primary: '#10B981',
+    dark: '#059669',
+    light: '#34D399',
+    preview: '#10B981',
+    tag: 'Rich Emerald (Default)',
+  },
+  {
+    id: 'jade',
+    name: 'Deep Pine Jade',
+    primary: '#059669',
+    dark: '#047857',
+    light: '#6EE7B7',
+    preview: '#059669',
+    tag: 'Classic Pine',
+  },
+  {
+    id: 'lime',
+    name: 'Cyber Lime',
+    primary: '#84CC16',
+    dark: '#65A30D',
+    light: '#A3E635',
+    preview: '#84CC16',
+    tag: 'Vibrant Neon',
+  },
+  {
     id: 'indigo',
     name: 'Electric Indigo',
     primary: '#6366F1',
     dark: '#4F46E5',
     light: '#818CF8',
     preview: '#6366F1',
-    tag: 'Neo-SaaS Cyber (Default)',
-  },
-  {
-    id: 'emerald',
-    name: 'Neon Emerald',
-    primary: '#10B981',
-    dark: '#059669',
-    light: '#34D399',
-    preview: '#10B981',
-    tag: 'Growth & Fintech',
+    tag: 'Neo-SaaS Accent',
   },
   {
     id: 'cyan',
-    name: 'Cyber Cyan',
+    name: 'Aqua Cyan',
     primary: '#06B6D4',
     dark: '#0891B2',
     light: '#22D3EE',
     preview: '#06B6D4',
-    tag: 'High-Tech Glass',
-  },
-  {
-    id: 'rose',
-    name: 'Sunset Rose',
-    primary: '#F43F5E',
-    dark: '#E11D48',
-    light: '#FB7185',
-    preview: '#F43F5E',
-    tag: 'Bold & Dynamic',
+    tag: 'Crystal Aqua',
   },
   {
     id: 'amber',
-    name: 'Luminous Amber',
+    name: 'Golden Sun',
     primary: '#F59E0B',
     dark: '#D97706',
     light: '#FBBF24',
     preview: '#F59E0B',
-    tag: 'Warm & High-Energy',
-  },
-  {
-    id: 'cobalt',
-    name: 'Royal Cobalt',
-    primary: '#2563EB',
-    dark: '#1D4ED8',
-    light: '#38BDF8',
-    preview: '#2563EB',
-    tag: 'Classic Corporate',
+    tag: 'Warm Gold',
   },
 ];
 
@@ -132,11 +132,9 @@ const ThemeContext = createContext(null);
  */
 export function ThemeProvider({ children }) {
   const [isDarkMode, setIsDarkMode] = useLocalStorage('startup-crm-theme', true);
-  // Default to the new 'indigo' theme palette
-  const [colorTheme, setColorTheme] = useLocalStorage('startup-crm-color-theme', 'indigo');
-  // Default to the new 'Plus Jakarta Sans' font
+  // Default to the emerald green theme palette
+  const [colorTheme, setColorTheme] = useLocalStorage('startup-crm-color-theme', 'emerald');
   const [fontFamily, setFontFamily] = useLocalStorage('startup-crm-font', 'Plus Jakarta Sans');
-  // Default font size scale
   const [fontSize, setFontSize] = useLocalStorage('startup-crm-font-size', 'md');
 
   // Synchronize CSS variables and classes on document root
@@ -147,9 +145,8 @@ export function ThemeProvider({ children }) {
     root.classList.toggle('dark', isDarkMode);
     root.style.colorScheme = isDarkMode ? 'dark' : 'light';
 
-    // 2. Active theme colors (handle legacy 'blue' by falling back to indigo)
-    const normalizedThemeId = colorTheme === 'blue' ? 'indigo' : colorTheme;
-    const activeTheme = THEMES.find((t) => t.id === normalizedThemeId) || THEMES[0];
+    // 2. Active theme colors
+    const activeTheme = THEMES.find((t) => t.id === colorTheme) || THEMES[0];
     root.style.setProperty('--brand-primary', activeTheme.primary);
     root.style.setProperty('--brand-primary-dark', activeTheme.dark);
     root.style.setProperty('--brand-primary-light', activeTheme.light);

@@ -31,11 +31,11 @@ function RecentLeads({ leads = [] }) {
 
   return (
     <div className="glass-panel p-6 rounded-2xl shadow-sm space-y-4">
-      <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
-        <h3 className="text-base font-bold text-slate-900 dark:text-white">
+      <div className="flex items-center justify-between border-b border-emerald-200/60 dark:border-emerald-900/40 pb-4">
+        <h3 className="text-base font-black text-emerald-950 dark:text-emerald-50">
           Recent Leads
         </h3>
-        <span className="text-xs text-slate-500 dark:text-slate-400 font-semibold bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-md">
+        <span className="text-xs text-emerald-800 dark:text-emerald-300 font-bold bg-emerald-100/80 dark:bg-emerald-950/80 border border-emerald-200 dark:border-emerald-800/50 px-2.5 py-0.5 rounded-full">
           Last 5 leads added
         </span>
       </div>

@@ -38,7 +38,7 @@ function QuickActions({ leads = [] }) {
 
   return (
     <div className="glass-panel p-6 rounded-2xl shadow-sm space-y-4">
-      <h3 className="text-base font-bold text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-4">
+      <h3 className="text-base font-black text-emerald-950 dark:text-emerald-50 border-b border-emerald-200/60 dark:border-emerald-900/40 pb-4">
         Quick Actions
       </h3>
 

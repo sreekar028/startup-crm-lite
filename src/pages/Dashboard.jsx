@@ -89,14 +89,14 @@ export default function Dashboard() {
       {/* Welcome Header Section */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight bg-gradient-to-r from-zinc-900 via-zinc-800 to-zinc-600 dark:from-white dark:via-zinc-100 dark:to-zinc-400 bg-clip-text text-transparent">
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight bg-gradient-to-r from-emerald-950 via-emerald-800 to-emerald-700 dark:from-emerald-50 dark:via-emerald-100 dark:to-emerald-300 bg-clip-text text-transparent">
             {getGreeting()}, Partner!
           </h1>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1.5 font-medium">
+          <p className="text-sm text-emerald-800/80 dark:text-emerald-300/80 mt-1.5 font-medium">
             Here is your sales pipeline velocity and conversion activity overview today.
           </p>
         </div>
-        <div className="flex items-center gap-2 bg-white/80 dark:bg-white/[0.04] border border-zinc-200 dark:border-white/10 px-3.5 py-1.5 rounded-full shadow-sm text-xs font-bold text-zinc-600 dark:text-zinc-300 self-start md:self-auto backdrop-blur-md">
+        <div className="flex items-center gap-2 bg-white/90 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800/50 px-3.5 py-1.5 rounded-full shadow-sm text-xs font-bold text-emerald-800 dark:text-emerald-200 self-start md:self-auto backdrop-blur-md">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
           <BarChart3 size={15} className="text-primary" />
           <span>Real-time Analytics</span>

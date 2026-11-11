@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Rocket, Mail, Lock, User, Eye, EyeOff, UserPlus, CheckCircle2, Sun, Moon } from 'lucide-react';
+import { Rocket, Mail, Lock, User, Eye, EyeOff, UserPlus, Sun, Moon } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 
 /**
- * Register page styled with the new Obsidian Lumina theme.
+ * Register page styled with Dark Green in dark mode and Light Green in light mode.
  */
 export default function Register() {
   const { register, isLoading } = useAuth();
@@ -62,10 +62,10 @@ export default function Register() {
 
   return (
     <div className={`min-h-screen flex flex-col items-center justify-center px-4 py-12 relative overflow-hidden transition-colors ${
-      isDarkMode ? 'bg-[#09090d] text-zinc-100' : 'bg-[#f8fafc] text-zinc-900'
+      isDarkMode ? 'bg-[#061c14] text-emerald-50' : 'bg-[#F0FDF4] text-emerald-950'
     }`}>
       {/* Background ambient light glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[350px] bg-primary/15 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[380px] bg-emerald-500/15 rounded-full blur-[130px] pointer-events-none" />
 
       <div className="mb-4 flex w-full max-w-md justify-end relative z-10">
         <button
@@ -73,24 +73,24 @@ export default function Register() {
           onClick={toggleTheme}
           className={`flex h-10 w-10 items-center justify-center rounded-2xl border transition-all ${
             isDarkMode
-              ? 'border-white/[0.08] bg-white/[0.04] text-zinc-300 hover:bg-white/[0.08] hover:text-white'
-              : 'border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100'
+              ? 'border-emerald-850/60 bg-emerald-950/40 text-emerald-300 hover:bg-emerald-900/40 hover:text-white'
+              : 'border-emerald-200 bg-white text-emerald-800 hover:bg-emerald-100'
           }`}
           aria-label="Toggle theme"
         >
-          {isDarkMode ? <Sun size={18} className="text-amber-400" /> : <Moon size={18} className="text-indigo-600" />}
+          {isDarkMode ? <Sun size={18} className="text-amber-400" /> : <Moon size={18} className="text-emerald-700" />}
         </button>
       </div>
 
       {/* Logo */}
       <div className="flex flex-col items-center mb-8 relative z-10">
-        <div className="p-3.5 rounded-2xl bg-gradient-to-tr from-primary to-primary-light shadow-xl shadow-primary/30 mb-4 animate-float">
+        <div className="p-3.5 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 shadow-xl shadow-emerald-500/30 mb-4 animate-float">
           <Rocket size={30} className="text-white" />
         </div>
-        <h1 className="text-2xl sm:text-3xl font-black tracking-tight bg-gradient-to-r from-zinc-900 to-zinc-600 dark:from-white dark:to-zinc-400 bg-clip-text text-transparent">
+        <h1 className="text-2xl sm:text-3xl font-black tracking-tight bg-gradient-to-r from-emerald-950 to-emerald-700 dark:from-emerald-50 dark:to-emerald-300 bg-clip-text text-transparent">
           Startup CRM Lite
         </h1>
-        <p className="text-sm mt-1 text-zinc-500 dark:text-zinc-400 font-medium">
+        <p className="text-sm mt-1 text-emerald-700/80 dark:text-emerald-300/80 font-medium">
           Create your sales workspace and manage pipeline with AI
         </p>
       </div>
@@ -109,11 +109,11 @@ export default function Register() {
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Name */}
           <div className="space-y-1.5">
-            <label htmlFor="name" className="text-xs font-bold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider">
+            <label htmlFor="name" className="text-xs font-bold text-emerald-800 dark:text-emerald-300/80 uppercase tracking-wider">
               Full Name
             </label>
             <div className="relative">
-              <User size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400" />
+              <User size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-emerald-500/80" />
               <input
                 id="name"
                 type="text"
@@ -126,8 +126,8 @@ export default function Register() {
                   errors.name
                     ? 'border-red-500'
                     : isDarkMode
-                    ? 'border-white/[0.08] bg-white/[0.03] text-white placeholder:text-zinc-600'
-                    : 'border-zinc-200 bg-zinc-50 text-zinc-900 placeholder:text-zinc-400'
+                    ? 'border-emerald-900/60 bg-emerald-950/40 text-white placeholder:text-emerald-700/60'
+                    : 'border-emerald-200 bg-white text-emerald-950 placeholder:text-emerald-400'
                 }`}
               />
             </div>
@@ -136,11 +136,11 @@ export default function Register() {
 
           {/* Email */}
           <div className="space-y-1.5">
-            <label htmlFor="email" className="text-xs font-bold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider">
+            <label htmlFor="email" className="text-xs font-bold text-emerald-800 dark:text-emerald-300/80 uppercase tracking-wider">
               Email Address
             </label>
             <div className="relative">
-              <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400" />
+              <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-emerald-500/80" />
               <input
                 id="email"
                 type="email"
@@ -153,8 +153,8 @@ export default function Register() {
                   errors.email
                     ? 'border-red-500'
                     : isDarkMode
-                    ? 'border-white/[0.08] bg-white/[0.03] text-white placeholder:text-zinc-600'
-                    : 'border-zinc-200 bg-zinc-50 text-zinc-900 placeholder:text-zinc-400'
+                    ? 'border-emerald-900/60 bg-emerald-950/40 text-white placeholder:text-emerald-700/60'
+                    : 'border-emerald-200 bg-white text-emerald-950 placeholder:text-emerald-400'
                 }`}
               />
             </div>
@@ -163,11 +163,11 @@ export default function Register() {
 
           {/* Password */}
           <div className="space-y-1.5">
-            <label htmlFor="password" className="text-xs font-bold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider">
-              Password <span className="font-normal text-zinc-500">(min 6 characters)</span>
+            <label htmlFor="password" className="text-xs font-bold text-emerald-800 dark:text-emerald-300/80 uppercase tracking-wider">
+              Password <span className="font-normal text-emerald-600/70 dark:text-emerald-400/60">(min 6 characters)</span>
             </label>
             <div className="relative">
-              <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400" />
+              <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-emerald-500/80" />
               <input
                 id="password"
                 type={showPassword ? 'text' : 'password'}
@@ -180,14 +180,14 @@ export default function Register() {
                   errors.password
                     ? 'border-red-500'
                     : isDarkMode
-                    ? 'border-white/[0.08] bg-white/[0.03] text-white placeholder:text-zinc-600'
-                    : 'border-zinc-200 bg-zinc-50 text-zinc-900 placeholder:text-zinc-400'
+                    ? 'border-emerald-900/60 bg-emerald-950/40 text-white placeholder:text-emerald-700/60'
+                    : 'border-emerald-200 bg-white text-emerald-950 placeholder:text-emerald-400'
                 }`}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-200 transition"
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-emerald-500/70 hover:text-emerald-300 transition"
                 aria-label="Toggle password visibility"
               >
                 {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -198,11 +198,11 @@ export default function Register() {
 
           {/* Confirm Password */}
           <div className="space-y-1.5">
-            <label htmlFor="confirmPassword" className="text-xs font-bold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider">
+            <label htmlFor="confirmPassword" className="text-xs font-bold text-emerald-800 dark:text-emerald-300/80 uppercase tracking-wider">
               Confirm Password
             </label>
             <div className="relative">
-              <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400" />
+              <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-emerald-500/80" />
               <input
                 id="confirmPassword"
                 type={showPassword ? 'text' : 'password'}
@@ -215,8 +215,8 @@ export default function Register() {
                   errors.confirmPassword
                     ? 'border-red-500'
                     : isDarkMode
-                    ? 'border-white/[0.08] bg-white/[0.03] text-white placeholder:text-zinc-600'
-                    : 'border-zinc-200 bg-zinc-50 text-zinc-900 placeholder:text-zinc-400'
+                    ? 'border-emerald-900/60 bg-emerald-950/40 text-white placeholder:text-emerald-700/60'
+                    : 'border-emerald-200 bg-white text-emerald-950 placeholder:text-emerald-400'
                 }`}
               />
             </div>
@@ -227,7 +227,7 @@ export default function Register() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full flex items-center justify-center gap-2 px-4 py-3 mt-3 text-sm font-bold text-white bg-gradient-to-r from-primary to-primary-dark hover:brightness-110 rounded-2xl shadow-lg shadow-primary/25 transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed min-h-[46px]"
+            className="w-full flex items-center justify-center gap-2 px-4 py-3 mt-3 text-sm font-bold text-white bg-gradient-to-r from-emerald-500 to-emerald-600 hover:brightness-110 rounded-2xl shadow-lg shadow-emerald-500/25 transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed min-h-[46px]"
           >
             {isLoading ? (
               <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -241,7 +241,7 @@ export default function Register() {
         </form>
 
         {/* Login link */}
-        <p className="mt-6 text-center text-xs text-zinc-500 font-medium">
+        <p className="mt-6 text-center text-xs text-emerald-700/70 dark:text-emerald-400/70 font-medium">
           Already have an account?{' '}
           <Link to="/login" className="font-bold text-primary hover:underline transition-colors">
             Sign in
@@ -250,7 +250,7 @@ export default function Register() {
       </div>
 
       {/* Footer */}
-      <p className="mt-8 text-[11px] text-zinc-600 dark:text-zinc-500 font-medium relative z-10">
+      <p className="mt-8 text-[11px] text-emerald-700/60 dark:text-emerald-500/50 font-medium relative z-10">
         © 2026 Startup CRM Lite • Intelligent Sales Platform
       </p>
     </div>

@@ -13,7 +13,7 @@ const PAGE_TITLES = {
 };
 
 /**
- * Top navigation bar with frosted glassmorphism styling and quick-action toolbars.
+ * Top navigation bar with frosted emerald styling and quick-action toolbars.
  */
 const TopBar = memo(({ onMenuToggle }) => {
   const location = useLocation();
@@ -40,21 +40,23 @@ const TopBar = memo(({ onMenuToggle }) => {
   return (
     <>
       <header className={`sticky top-0 z-30 flex items-center justify-between border-b px-4 py-3 lg:px-6 backdrop-blur-xl ${
-        isDarkMode ? 'border-white/[0.07] bg-[#09090d]/85 text-zinc-100' : 'border-zinc-200 bg-white/85 text-zinc-900'
+        isDarkMode
+          ? 'border-emerald-900/40 bg-[#061c14]/90 text-emerald-50'
+          : 'border-emerald-200/80 bg-[#F0FDF4]/90 text-emerald-950'
       }`}>
         {/* Left: Menu hamburger + Page title */}
         <div className="flex items-center gap-3">
           <button
             onClick={handleMenuToggle}
             className={`md:hidden flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xl p-2.5 transition-colors ${
-              isDarkMode ? 'text-zinc-400 hover:bg-white/5 hover:text-white' : 'text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900'
+              isDarkMode ? 'text-emerald-300 hover:bg-emerald-900/30 hover:text-white' : 'text-emerald-700 hover:bg-emerald-100 hover:text-emerald-950'
             }`}
             aria-label="Open menu"
           >
             <Menu size={20} />
           </button>
           <div className="flex items-center gap-2">
-            <h2 className="text-sm font-extrabold tracking-tight sm:text-base">
+            <h2 className="text-sm font-black tracking-tight sm:text-base">
               {title}
             </h2>
           </div>
@@ -65,7 +67,7 @@ const TopBar = memo(({ onMenuToggle }) => {
           {/* New Lead CTA */}
           <button
             onClick={() => navigate('/leads', { state: { openModal: true } })}
-            className="flex min-h-[40px] shrink-0 items-center gap-1.5 rounded-xl bg-gradient-to-r from-primary to-primary-dark px-3.5 py-2 text-xs font-bold text-white shadow-lg shadow-primary/25 transition-all hover:brightness-110 active:scale-95"
+            className="flex min-h-[40px] shrink-0 items-center gap-1.5 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 px-3.5 py-2 text-xs font-bold text-white shadow-lg shadow-emerald-500/25 transition-all hover:brightness-110 active:scale-95"
           >
             <Plus size={15} />
             <span className="hidden sm:inline">New Lead</span>
@@ -76,8 +78,8 @@ const TopBar = memo(({ onMenuToggle }) => {
             onClick={() => setAppearanceOpen(true)}
             className={`flex min-h-[40px] min-w-[40px] items-center justify-center rounded-xl p-2.5 transition-all ${
               isDarkMode
-                ? 'text-zinc-400 hover:bg-white/[0.06] hover:text-white border border-white/[0.06]'
-                : 'text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 border border-zinc-200'
+                ? 'text-emerald-300 hover:bg-emerald-900/30 hover:text-white border border-emerald-900/50'
+                : 'text-emerald-800 hover:bg-emerald-100 hover:text-emerald-950 border border-emerald-200'
             }`}
             aria-label="Theme, font, and size customizer"
             title="Appearance Settings (Theme, Font, Size)"
@@ -90,13 +92,13 @@ const TopBar = memo(({ onMenuToggle }) => {
             onClick={toggleTheme}
             className={`flex min-h-[40px] min-w-[40px] items-center justify-center rounded-xl p-2.5 transition-all ${
               isDarkMode
-                ? 'text-zinc-400 hover:bg-white/[0.06] hover:text-white border border-white/[0.06]'
-                : 'text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 border border-zinc-200'
+                ? 'text-emerald-300 hover:bg-emerald-900/30 hover:text-white border border-emerald-900/50'
+                : 'text-emerald-800 hover:bg-emerald-100 hover:text-emerald-950 border border-emerald-200'
             }`}
             aria-label="Toggle theme mode"
             title={`Switch to ${isDarkMode ? 'Light' : 'Dark'} mode`}
           >
-            {isDarkMode ? <Sun size={18} className="text-amber-400" /> : <Moon size={18} className="text-indigo-600" />}
+            {isDarkMode ? <Sun size={18} className="text-amber-400" /> : <Moon size={18} className="text-emerald-700" />}
           </button>
 
           {/* User profile avatar */}
@@ -104,7 +106,7 @@ const TopBar = memo(({ onMenuToggle }) => {
             type="button"
             onClick={() => navigate('/profile')}
             title={user?.name || 'User'}
-            className="flex h-9 w-9 shrink-0 select-none items-center justify-center rounded-xl bg-gradient-to-tr from-primary to-primary-light text-xs font-black text-white shadow-md shadow-primary/25 transition hover:scale-105"
+            className="flex h-9 w-9 shrink-0 select-none items-center justify-center rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 text-xs font-black text-white shadow-md shadow-emerald-500/25 transition hover:scale-105"
           >
             {initials}
           </button>
@@ -113,8 +115,8 @@ const TopBar = memo(({ onMenuToggle }) => {
           <button
             className={`relative flex min-h-[40px] min-w-[40px] items-center justify-center rounded-xl p-2.5 transition-all ${
               isDarkMode
-                ? 'text-zinc-400 hover:bg-white/[0.06] hover:text-white border border-white/[0.06]'
-                : 'text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 border border-zinc-200'
+                ? 'text-emerald-300 hover:bg-emerald-900/30 hover:text-white border border-emerald-900/50'
+                : 'text-emerald-800 hover:bg-emerald-100 hover:text-emerald-950 border border-emerald-200'
             }`}
             aria-label="View notifications"
           >
@@ -128,8 +130,8 @@ const TopBar = memo(({ onMenuToggle }) => {
             onClick={logout}
             className={`flex min-h-[40px] min-w-[40px] items-center justify-center rounded-xl p-2.5 transition-all ${
               isDarkMode
-                ? 'text-zinc-400 hover:bg-red-950/40 hover:text-red-400 border border-white/[0.06]'
-                : 'text-zinc-500 hover:bg-red-50 hover:text-red-500 border border-zinc-200'
+                ? 'text-emerald-300 hover:bg-red-950/40 hover:text-red-400 border border-emerald-900/50'
+                : 'text-emerald-700 hover:bg-red-50 hover:text-red-600 border border-emerald-200'
             }`}
             aria-label="Logout"
             title="Logout"

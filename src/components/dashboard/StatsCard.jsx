@@ -29,10 +29,10 @@ export default function StatsCard({ title, value, icon: Icon, change, color = 'p
       <div className="flex items-start justify-between">
         {/* Metric Label & Value */}
         <div className="space-y-2">
-          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+          <span className="text-xs font-bold text-emerald-800/80 dark:text-emerald-300/80 uppercase tracking-wider">
             {title}
           </span>
-          <h3 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
+          <h3 className="text-3xl font-black text-emerald-950 dark:text-emerald-50 tracking-tight">
             {value}
           </h3>
         </div>
@@ -55,7 +55,7 @@ export default function StatsCard({ title, value, icon: Icon, change, color = 'p
           {isPositive ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
           {Math.abs(change)}%
         </span>
-        <span className="text-[11px] text-slate-500 dark:text-slate-400">
+        <span className="text-[11px] text-emerald-700/70 dark:text-emerald-400/60 font-medium">
           vs last month
         </span>
       </div>
