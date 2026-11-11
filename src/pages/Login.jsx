@@ -77,6 +77,7 @@ export default function Login() {
                 value={formData.email}
                 onChange={handleChange}
                 required
+                autoComplete="username"
                 placeholder="you@company.com"
                 className={`w-full rounded-xl border px-4 py-2.5 pl-9 pr-4 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 ${isDarkMode ? 'border-slate-700 bg-slate-800/60 text-white placeholder:text-slate-600' : 'border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400'}`}
               />
@@ -97,6 +98,7 @@ export default function Login() {
                 value={formData.password}
                 onChange={handleChange}
                 required
+                autoComplete="current-password"
                 placeholder="••••••••"
                 className={`w-full rounded-xl border px-4 py-2.5 pl-9 pr-10 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 ${isDarkMode ? 'border-slate-700 bg-slate-800/60 text-white placeholder:text-slate-600' : 'border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400'}`}
               />

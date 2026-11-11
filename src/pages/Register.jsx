@@ -102,6 +102,7 @@ export default function Register() {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
+                autoComplete="name"
                 placeholder="Rahul Verma"
                 className={`w-full rounded-xl border px-4 py-2.5 pl-9 pr-4 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 ${
                   errors.name
@@ -126,6 +127,7 @@ export default function Register() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
+                autoComplete="email"
                 placeholder="you@company.com"
                 className={`w-full rounded-xl border px-4 py-2.5 pl-9 pr-4 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 ${
                   errors.email
@@ -150,6 +152,7 @@ export default function Register() {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
+                autoComplete="new-password"
                 placeholder="••••••••"
                 className={`w-full rounded-xl border px-4 py-2.5 pl-9 pr-10 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 ${
                   errors.password
@@ -182,6 +185,7 @@ export default function Register() {
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleChange}
+                autoComplete="new-password"
                 placeholder="••••••••"
                 className={`w-full rounded-xl border px-4 py-2.5 pl-9 pr-4 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 ${
                   errors.confirmPassword
