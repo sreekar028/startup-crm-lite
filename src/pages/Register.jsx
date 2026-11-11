@@ -50,7 +50,7 @@ export default function Register() {
     try {
       await register(formData.name, formData.email, formData.password);
     } catch (err) {
-      const message = err.response?.data?.message || 'Registration failed.';
+      const message = err.response?.data?.message || err.message || 'Registration failed.';
       setErrors({ server: message });
     }
   };

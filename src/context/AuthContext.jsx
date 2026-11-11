@@ -25,7 +25,8 @@ export function AuthProvider({ children }) {
       }
       try {
         const result = await authService.getProfile();
-        setUser(result.data);
+        const userData = result?.user || result?.data?.user || result?.data || result;
+        setUser(userData);
       } catch (err) {
         // Token invalid or expired — clear it
         localStorage.removeItem('crm-token');
@@ -46,14 +47,22 @@ export function AuthProvider({ children }) {
     setIsLoading(true);
     try {
       const result = await authService.login(email, password);
-      const { token: newToken, user: newUser } = result.data;
+      // Safe extraction whether result is { token, user } or { data: { token, user } }
+      const payload = result?.data && (result.data.token || result.data.user) ? result.data : result;
+      const newToken = payload?.token || result?.token;
+      const newUser = payload?.user || result?.user;
+
+      if (!newToken || !newUser) {
+        throw new Error('Invalid authentication response from server.');
+      }
+
       localStorage.setItem('crm-token', newToken);
       setToken(newToken);
       setUser(newUser);
-      toast.success(`Welcome back, ${newUser.name}!`);
+      toast.success(`Welcome back, ${newUser.name || 'User'}!`);
       navigate('/');
     } catch (err) {
-      const message = err.response?.data?.message || 'Login failed. Please try again.';
+      const message = err.response?.data?.message || err.message || 'Login failed. Please try again.';
       toast.error(message);
       throw err;
     } finally {
@@ -68,14 +77,21 @@ export function AuthProvider({ children }) {
     setIsLoading(true);
     try {
       const result = await authService.register(name, email, password);
-      const { token: newToken, user: newUser } = result.data;
+      const payload = result?.data && (result.data.token || result.data.user) ? result.data : result;
+      const newToken = payload?.token || result?.token;
+      const newUser = payload?.user || result?.user;
+
+      if (!newToken || !newUser) {
+        throw new Error('Invalid registration response from server.');
+      }
+
       localStorage.setItem('crm-token', newToken);
       setToken(newToken);
       setUser(newUser);
-      toast.success(`Welcome to Startup CRM, ${newUser.name}!`);
+      toast.success(`Welcome to Startup CRM, ${newUser.name || 'User'}!`);
       navigate('/');
     } catch (err) {
-      const message = err.response?.data?.message || 'Registration failed. Please try again.';
+      const message = err.response?.data?.message || err.message || 'Registration failed. Please try again.';
       toast.error(message);
       throw err;
     } finally {
@@ -98,12 +114,12 @@ export function AuthProvider({ children }) {
     setIsLoading(true);
     try {
       const result = await authService.updateProfile(data);
-      const updatedUser = result.data;
+      const updatedUser = result?.user || result?.data?.user || result?.data || result;
       setUser(updatedUser);
       toast.success('Profile updated successfully.');
       return updatedUser;
     } catch (err) {
-      const message = err.response?.data?.message || 'Unable to update your profile right now.';
+      const message = err.response?.data?.message || err.message || 'Unable to update your profile right now.';
       toast.error(message);
       throw err;
     } finally {
