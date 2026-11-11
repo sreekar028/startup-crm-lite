@@ -1,14 +1,22 @@
 @import "tailwindcss";
 
-@variant dark (&:where(.dark, .dark *));
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --brand-primary: #2563EB;
+  --brand-primary-dark: #1D4ED8;
+  --brand-primary-light: #3B82F6;
+  --app-font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --app-font-size: 16px;
+}
 
 @theme {
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-sans: var(--app-font-family);
 
-  /* Brand colors */
-  --color-primary: #2563EB;
-  --color-primary-dark: #1D4ED8;
-  --color-primary-light: #3B82F6;
+  /* Brand colors dynamically linked to active theme */
+  --color-primary: var(--brand-primary);
+  --color-primary-dark: var(--brand-primary-dark);
+  --color-primary-light: var(--brand-primary-light);
   --color-success: #22C55E;
   --color-success-light: #4ADE80;
   --color-warning: #F59E0B;
@@ -26,31 +34,21 @@
 }
 
 @layer base {
-  :root {
-    color-scheme: light;
-    background-color: #f8fafc;
-    color: #0f172a;
-  }
-
   html {
     scroll-behavior: smooth;
-  }
-
-  html.dark {
-    color-scheme: dark;
+    font-size: var(--app-font-size, 16px);
   }
   
   body {
-    min-height: 100vh;
-    background-color: #f8fafc;
-    color: #0f172a;
-    font-family: 'Inter', system-ui, sans-serif;
+    background-color: #06091A;
+    color: #F1F5F9;
+    font-family: var(--app-font-family, 'Inter', system-ui, sans-serif);
     transition: background-color 0.2s ease, color 0.2s ease;
   }
 
-  html.dark body {
-    background-color: #06091A;
-    color: #F1F5F9;
+  html:not(.dark) body {
+    background-color: #F8FAFC;
+    color: #0F172A;
   }
 }
 
@@ -58,7 +56,7 @@
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #1E3A6E; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #2563EB; }
+::-webkit-scrollbar-thumb:hover { background: var(--brand-primary); }
 
 /* ── Card base ──────────────────────────────────────────────────────────────── */
 .crm-card {
@@ -68,13 +66,22 @@
   transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 .crm-card:hover {
-  box-shadow: 0 8px 32px rgba(37, 99, 235, 0.08);
+  box-shadow: 0 8px 32px color-mix(in srgb, var(--brand-primary) 15%, transparent);
+}
+
+html:not(.dark) .crm-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+html:not(.dark) .crm-card:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 /* ── Sidebar active link ─────────────────────────────────────────────────────── */
 .sidebar-active {
-  background: linear-gradient(90deg, rgba(37,99,235,0.25) 0%, rgba(37,99,235,0.08) 100%);
-  border-left: 3px solid #2563EB;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--brand-primary) 22%, transparent) 0%, color-mix(in srgb, var(--brand-primary) 6%, transparent) 100%);
+  border-left: 3px solid var(--brand-primary);
 }
 
 /* ── KPI card glow ──────────────────────────────────────────────────────────── */
@@ -86,14 +93,28 @@
 }
 .kpi-card:hover {
   transform: translateY(-2px);
-  border-color: #1E3A6E;
-  box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+  border-color: var(--brand-primary);
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--brand-primary) 18%, transparent);
+}
+
+html:not(.dark) .kpi-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+}
+html:not(.dark) .kpi-card:hover {
+  border-color: var(--brand-primary);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 /* ── Chart grid lines fix ─────────────────────────────────────────────────── */
 .recharts-cartesian-grid-horizontal line,
 .recharts-cartesian-grid-vertical line {
   stroke: #1A2850 !important;
+}
+
+html:not(.dark) .recharts-cartesian-grid-horizontal line,
+html:not(.dark) .recharts-cartesian-grid-vertical line {
+  stroke: #E2E8F0 !important;
 }
 
 /* ── Pulse skeleton ─────────────────────────────────────────────────────────── */

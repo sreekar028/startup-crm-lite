@@ -8,12 +8,28 @@
     <meta name="description" content="Manage your startup sales pipeline, track leads, and view beautiful sales analytics with Startup CRM Lite." />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Default to dark mode always -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Immediate theme & typography hydration before paint -->
     <script>
-      document.documentElement.classList.add('dark');
       try {
-        localStorage.setItem('startup-crm-theme', 'true');
+        const storedTheme = localStorage.getItem('startup-crm-theme');
+        const isDark = storedTheme === null ? true : storedTheme === 'true' || storedTheme === 'dark';
+        if (isDark) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+
+        const storedSize = localStorage.getItem('startup-crm-font-size');
+        if (storedSize) {
+          const sizeMap = { sm: '14px', md: '16px', lg: '18px', xl: '20px' };
+          document.documentElement.style.fontSize = sizeMap[storedSize] || storedSize;
+        }
+
+        const storedFont = localStorage.getItem('startup-crm-font');
+        if (storedFont) {
+          document.documentElement.style.setProperty('--app-font-family', storedFont);
+        }
       } catch(e) {}
     </script>
   </head>

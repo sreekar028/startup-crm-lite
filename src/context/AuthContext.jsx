@@ -25,7 +25,7 @@ export function AuthProvider({ children }) {
       }
       try {
         const result = await authService.getProfile();
-        setUser(result);
+        setUser(result.data);
       } catch (err) {
         // Token invalid or expired — clear it
         localStorage.removeItem('crm-token');
@@ -46,7 +46,7 @@ export function AuthProvider({ children }) {
     setIsLoading(true);
     try {
       const result = await authService.login(email, password);
-      const { token: newToken, user: newUser } = result;
+      const { token: newToken, user: newUser } = result.data;
       localStorage.setItem('crm-token', newToken);
       setToken(newToken);
       setUser(newUser);
@@ -68,7 +68,7 @@ export function AuthProvider({ children }) {
     setIsLoading(true);
     try {
       const result = await authService.register(name, email, password);
-      const { token: newToken, user: newUser } = result;
+      const { token: newToken, user: newUser } = result.data;
       localStorage.setItem('crm-token', newToken);
       setToken(newToken);
       setUser(newUser);
@@ -98,7 +98,7 @@ export function AuthProvider({ children }) {
     setIsLoading(true);
     try {
       const result = await authService.updateProfile(data);
-      const updatedUser = result;
+      const updatedUser = result.data;
       setUser(updatedUser);
       toast.success('Profile updated successfully.');
       return updatedUser;
