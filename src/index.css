@@ -3,10 +3,11 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --brand-primary: #2563EB;
-  --brand-primary-dark: #1D4ED8;
-  --brand-primary-light: #3B82F6;
-  --app-font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --brand-primary: #6366F1;
+  --brand-primary-dark: #4F46E5;
+  --brand-primary-light: #818CF8;
+  --brand-primary-glow: rgba(99, 102, 241, 0.25);
+  --app-font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --app-font-size: 16px;
 }
 
@@ -17,20 +18,20 @@
   --color-primary: var(--brand-primary);
   --color-primary-dark: var(--brand-primary-dark);
   --color-primary-light: var(--brand-primary-light);
-  --color-success: #22C55E;
-  --color-success-light: #4ADE80;
+  --color-success: #10B981;
+  --color-success-light: #34D399;
   --color-warning: #F59E0B;
   --color-danger: #EF4444;
   --color-danger-light: #F87171;
-  --color-purple: #7C3AED;
+  --color-purple: #8B5CF6;
 
-  /* Dark navy theme */
-  --color-navy-950: #06091A;
-  --color-navy-900: #0A0F28;
-  --color-navy-800: #0D1533;
-  --color-navy-700: #111D40;
-  --color-navy-600: #1A2850;
-  --color-navy-500: #1E3A6E;
+  /* Modern zinc obsidian tones */
+  --color-obsidian-950: #08080C;
+  --color-obsidian-900: #0E0E14;
+  --color-obsidian-800: #14141E;
+  --color-obsidian-700: #1E1E2C;
+  --color-obsidian-600: #2C2C3E;
+  --color-obsidian-500: #3E3E56;
 }
 
 @layer base {
@@ -40,117 +41,136 @@
   }
   
   body {
-    background-color: #06091A;
-    color: #F1F5F9;
-    font-family: var(--app-font-family, 'Inter', system-ui, sans-serif);
-    transition: background-color 0.2s ease, color 0.2s ease;
+    min-height: 100vh;
+    background-color: #09090D;
+    background-image: 
+      radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--brand-primary) 12%, transparent) 0%, transparent 60%),
+      radial-gradient(circle at 90% 20%, color-mix(in srgb, var(--brand-primary) 6%, transparent) 0%, transparent 40%);
+    background-attachment: fixed;
+    color: #F4F4F5;
+    font-family: var(--app-font-family, 'Plus Jakarta Sans', system-ui, sans-serif);
+    transition: background-color 0.25s ease, color 0.25s ease;
+    letter-spacing: -0.01em;
   }
 
   html:not(.dark) body {
     background-color: #F8FAFC;
-    color: #0F172A;
+    background-image: 
+      radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--brand-primary) 8%, transparent) 0%, transparent 55%),
+      radial-gradient(circle at 85% 25%, color-mix(in srgb, var(--brand-primary) 4%, transparent) 0%, transparent 40%);
+    color: #09090B;
   }
 }
 
-/* ── Scrollbar ──────────────────────────────────────────────────────────────── */
-::-webkit-scrollbar { width: 5px; height: 5px; }
+/* ── Minimal Pill Scrollbar ─────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #1E3A6E; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: var(--brand-primary); }
-
-/* ── Card base ──────────────────────────────────────────────────────────────── */
-.crm-card {
-  background: #0D1533;
-  border: 1px solid #1A2850;
-  border-radius: 16px;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
 }
-.crm-card:hover {
-  box-shadow: 0 8px 32px color-mix(in srgb, var(--brand-primary) 15%, transparent);
+html:not(.dark) ::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-primary);
 }
 
-html:not(.dark) .crm-card {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-html:not(.dark) .crm-card:hover {
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-}
-
-/* ── Sidebar active link ─────────────────────────────────────────────────────── */
-.sidebar-active {
-  background: linear-gradient(90deg, color-mix(in srgb, var(--brand-primary) 22%, transparent) 0%, color-mix(in srgb, var(--brand-primary) 6%, transparent) 100%);
-  border-left: 3px solid var(--brand-primary);
-}
-
-/* ── KPI card glow ──────────────────────────────────────────────────────────── */
+/* ── Modern Glass Panel & Card Base ─────────────────────────────────────────── */
+.glass-panel,
+.crm-card,
 .kpi-card {
-  background: #0D1533;
-  border: 1px solid #1A2850;
-  border-radius: 16px;
-  transition: all 0.25s ease;
-}
-.kpi-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--brand-primary);
-  box-shadow: 0 12px 32px color-mix(in srgb, var(--brand-primary) 18%, transparent);
+  background: rgba(18, 18, 26, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-html:not(.dark) .kpi-card {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
+.glass-panel:hover,
+.crm-card:hover,
+.kpi-card:hover {
+  border-color: color-mix(in srgb, var(--brand-primary) 40%, transparent);
+  box-shadow: 0 14px 40px -4px color-mix(in srgb, var(--brand-primary) 18%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
 }
+
+/* Light mode panels */
+html:not(.dark) .glass-panel,
+html:not(.dark) .crm-card,
+html:not(.dark) .kpi-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(228, 228, 231, 0.9);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), inset 0 1px 0 #FFFFFF;
+}
+
+html:not(.dark) .glass-panel:hover,
+html:not(.dark) .crm-card:hover,
 html:not(.dark) .kpi-card:hover {
   border-color: var(--brand-primary);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 14px 34px -4px color-mix(in srgb, var(--brand-primary) 14%, transparent);
+  transform: translateY(-2px);
 }
 
-/* ── Chart grid lines fix ─────────────────────────────────────────────────── */
+/* ── Sidebar Active Item ─────────────────────────────────────────────────────── */
+.sidebar-active {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--brand-primary) 22%, transparent) 0%, color-mix(in srgb, var(--brand-primary) 4%, transparent) 100%);
+  border-left: 3px solid var(--brand-primary);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* ── Chart Grid Lines ───────────────────────────────────────────────────────── */
 .recharts-cartesian-grid-horizontal line,
 .recharts-cartesian-grid-vertical line {
-  stroke: #1A2850 !important;
+  stroke: rgba(255, 255, 255, 0.07) !important;
 }
 
 html:not(.dark) .recharts-cartesian-grid-horizontal line,
 html:not(.dark) .recharts-cartesian-grid-vertical line {
-  stroke: #E2E8F0 !important;
+  stroke: rgba(0, 0, 0, 0.06) !important;
 }
 
-/* ── Pulse skeleton ─────────────────────────────────────────────────────────── */
+/* ── Shimmer Skeleton ───────────────────────────────────────────────────────── */
 @keyframes shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
 .skeleton {
-  background: linear-gradient(90deg, #0D1533 25%, #1A2850 50%, #0D1533 75%);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.03) 25%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.03) 75%);
   background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 8px;
+  animation: shimmer 1.6s infinite;
+  border-radius: 10px;
 }
 
-/* ── Heatmap cell ────────────────────────────────────────────────────────────── */
+/* ── Heatmap Cells ──────────────────────────────────────────────────────────── */
 .heat-cell {
-  transition: transform 0.1s ease;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  border-radius: 4px;
 }
-.heat-cell:hover { transform: scale(1.4); }
+.heat-cell:hover {
+  transform: scale(1.35);
+  box-shadow: 0 0 12px var(--brand-primary);
+  z-index: 10;
+}
 
-/* ── Funnel trapezoid ───────────────────────────────────────────────────────── */
+/* ── Funnel Bar ─────────────────────────────────────────────────────────────── */
 .funnel-bar {
   transition: all 0.4s ease;
-  clip-path: polygon(8% 0%, 92% 0%, 100% 100%, 0% 100%);
+  clip-path: polygon(6% 0%, 94% 0%, 100% 100%, 0% 100%);
+  border-radius: 6px;
 }
 
-/* ── Top bar ────────────────────────────────────────────────────────────────── */
-.topbar {
-  background: #0A0F28;
-  border-bottom: 1px solid #1A2850;
-}
-
-/* ── Gantt bar ──────────────────────────────────────────────────────────────── */
+/* ── Gantt Bar ──────────────────────────────────────────────────────────────── */
 .gantt-bar {
-  border-radius: 4px;
-  height: 18px;
-  transition: opacity 0.2s ease;
+  border-radius: 6px;
+  height: 20px;
+  transition: all 0.2s ease;
 }
-.gantt-bar:hover { opacity: 0.85; }
+.gantt-bar:hover {
+  filter: brightness(1.15);
+  transform: scaleY(1.1);
+}

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Rocket, User, Mail, Lock, Eye, EyeOff, UserPlus, Sun, Moon } from 'lucide-react';
+import { Rocket, Mail, Lock, User, Eye, EyeOff, UserPlus, CheckCircle2, Sun, Moon } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 
 /**
- * Register page — account creation form with validation.
+ * Register page styled with the new Obsidian Lumina theme.
  */
 export default function Register() {
   const { register, isLoading } = useAuth();
@@ -19,6 +19,25 @@ export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
 
+  const validate = () => {
+    const errs = {};
+    if (!formData.name.trim()) errs.name = 'Name is required.';
+    if (!formData.email.trim()) {
+      errs.email = 'Email is required.';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errs.email = 'Please enter a valid email address.';
+    }
+    if (!formData.password) {
+      errs.password = 'Password is required.';
+    } else if (formData.password.length < 6) {
+      errs.password = 'Password must be at least 6 characters.';
+    }
+    if (formData.password !== formData.confirmPassword) {
+      errs.confirmPassword = 'Passwords do not match.';
+    }
+    return errs;
+  };
+
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     if (errors[e.target.name]) {
@@ -26,29 +45,15 @@ export default function Register() {
     }
   };
 
-  const validate = () => {
-    const newErrors = {};
-    if (!formData.name.trim() || formData.name.length < 2) {
-      newErrors.name = 'Name must be at least 2 characters.';
-    }
-    if (!formData.email.trim() || !/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email address.';
-    }
-    if (!formData.password || formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters.';
-    }
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match.';
-    }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validate()) return;
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
     try {
-      await register(formData.name, formData.email, formData.password);
+      await register(formData.name.trim(), formData.email.trim(), formData.password);
     } catch (err) {
       const message = err.response?.data?.message || err.message || 'Registration failed.';
       setErrors({ server: message });
@@ -56,46 +61,59 @@ export default function Register() {
   };
 
   return (
-    <div className={`min-h-screen flex flex-col items-center justify-center px-4 py-12 transition-colors ${isDarkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
-      <div className="mb-4 flex w-full max-w-md justify-end">
+    <div className={`min-h-screen flex flex-col items-center justify-center px-4 py-12 relative overflow-hidden transition-colors ${
+      isDarkMode ? 'bg-[#09090d] text-zinc-100' : 'bg-[#f8fafc] text-zinc-900'
+    }`}>
+      {/* Background ambient light glow */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[350px] bg-primary/15 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="mb-4 flex w-full max-w-md justify-end relative z-10">
         <button
           type="button"
           onClick={toggleTheme}
-          className={`flex h-10 w-10 items-center justify-center rounded-full border transition-colors ${isDarkMode ? 'border-slate-800 bg-slate-900 text-slate-200 hover:bg-slate-800' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-100'}`}
+          className={`flex h-10 w-10 items-center justify-center rounded-2xl border transition-all ${
+            isDarkMode
+              ? 'border-white/[0.08] bg-white/[0.04] text-zinc-300 hover:bg-white/[0.08] hover:text-white'
+              : 'border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100'
+          }`}
           aria-label="Toggle theme"
         >
-          {isDarkMode ? '☀️' : '🌙'}
+          {isDarkMode ? <Sun size={18} className="text-amber-400" /> : <Moon size={18} className="text-indigo-600" />}
         </button>
       </div>
 
       {/* Logo */}
-      <div className="flex flex-col items-center mb-8">
-        <div className="p-3 rounded-2xl bg-primary shadow-lg shadow-primary/40 mb-4">
-          <Rocket size={28} className="text-white" />
+      <div className="flex flex-col items-center mb-8 relative z-10">
+        <div className="p-3.5 rounded-2xl bg-gradient-to-tr from-primary to-primary-light shadow-xl shadow-primary/30 mb-4 animate-float">
+          <Rocket size={30} className="text-white" />
         </div>
-        <h1 className={`text-2xl font-extrabold tracking-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>Startup CRM Lite</h1>
-        <p className={`text-sm mt-1 ${isDarkMode ? 'text-slate-400' : 'text-slate-500'}`}>Create your free account</p>
+        <h1 className="text-2xl sm:text-3xl font-black tracking-tight bg-gradient-to-r from-zinc-900 to-zinc-600 dark:from-white dark:to-zinc-400 bg-clip-text text-transparent">
+          Startup CRM Lite
+        </h1>
+        <p className="text-sm mt-1 text-zinc-500 dark:text-zinc-400 font-medium">
+          Create your sales workspace and manage pipeline with AI
+        </p>
       </div>
 
       {/* Card */}
-      <div className={`w-full max-w-md rounded-2xl border p-8 shadow-xl ${isDarkMode ? 'border-slate-800 bg-slate-900/95' : 'border-slate-200 bg-white'}`}>
-        <h2 className={`text-lg font-bold mb-6 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>Get started</h2>
+      <div className="glass-panel w-full max-w-md p-8 sm:p-9 rounded-3xl relative z-10">
+        <h2 className="text-lg font-black tracking-tight mb-6">Create your account</h2>
 
         {/* Server error */}
         {errors.server && (
-          <div className={`mb-4 rounded-xl border px-4 py-3 text-sm font-semibold ${isDarkMode ? 'border-red-900/40 bg-red-950/30 text-red-400' : 'border-red-200 bg-red-50 text-red-600'}`}>
+          <div className="mb-5 rounded-2xl border border-red-500/20 bg-red-500/10 p-3.5 text-xs font-semibold text-red-500 dark:text-red-400">
             {errors.server}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Name */}
-          <div className="space-y-1">
-            <label htmlFor="name" className={`text-xs font-semibold ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+          <div className="space-y-1.5">
+            <label htmlFor="name" className="text-xs font-bold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider">
               Full Name
             </label>
             <div className="relative">
-              <User size={15} className={`absolute left-3 top-1/2 -translate-y-1/2 ${isDarkMode ? 'text-slate-500' : 'text-slate-400'}`} />
+              <User size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400" />
               <input
                 id="name"
                 type="text"
@@ -103,11 +121,13 @@ export default function Register() {
                 value={formData.name}
                 onChange={handleChange}
                 autoComplete="name"
-                placeholder="Rahul Verma"
-                className={`w-full rounded-xl border px-4 py-2.5 pl-9 pr-4 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 ${
+                placeholder="Alex Morgan"
+                className={`w-full rounded-2xl border px-4 py-3 pl-10 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/25 ${
                   errors.name
-                    ? isDarkMode ? 'border-red-500' : 'border-red-500'
-                    : isDarkMode ? 'border-slate-700 bg-slate-800/60 text-white placeholder:text-slate-600' : 'border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400'
+                    ? 'border-red-500'
+                    : isDarkMode
+                    ? 'border-white/[0.08] bg-white/[0.03] text-white placeholder:text-zinc-600'
+                    : 'border-zinc-200 bg-zinc-50 text-zinc-900 placeholder:text-zinc-400'
                 }`}
               />
             </div>
@@ -115,12 +135,12 @@ export default function Register() {
           </div>
 
           {/* Email */}
-          <div className="space-y-1">
-            <label htmlFor="email" className={`text-xs font-semibold ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+          <div className="space-y-1.5">
+            <label htmlFor="email" className="text-xs font-bold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider">
               Email Address
             </label>
             <div className="relative">
-              <Mail size={15} className={`absolute left-3 top-1/2 -translate-y-1/2 ${isDarkMode ? 'text-slate-500' : 'text-slate-400'}`} />
+              <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400" />
               <input
                 id="email"
                 type="email"
@@ -128,11 +148,13 @@ export default function Register() {
                 value={formData.email}
                 onChange={handleChange}
                 autoComplete="email"
-                placeholder="you@company.com"
-                className={`w-full rounded-xl border px-4 py-2.5 pl-9 pr-4 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 ${
+                placeholder="alex@company.com"
+                className={`w-full rounded-2xl border px-4 py-3 pl-10 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/25 ${
                   errors.email
-                    ? isDarkMode ? 'border-red-500' : 'border-red-500'
-                    : isDarkMode ? 'border-slate-700 bg-slate-800/60 text-white placeholder:text-slate-600' : 'border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400'
+                    ? 'border-red-500'
+                    : isDarkMode
+                    ? 'border-white/[0.08] bg-white/[0.03] text-white placeholder:text-zinc-600'
+                    : 'border-zinc-200 bg-zinc-50 text-zinc-900 placeholder:text-zinc-400'
                 }`}
               />
             </div>
@@ -140,12 +162,12 @@ export default function Register() {
           </div>
 
           {/* Password */}
-          <div className="space-y-1">
-            <label htmlFor="password" className={`text-xs font-semibold ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-              Password <span className={`font-normal ${isDarkMode ? 'text-slate-600' : 'text-slate-500'}`}>(min 6 characters)</span>
+          <div className="space-y-1.5">
+            <label htmlFor="password" className="text-xs font-bold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider">
+              Password <span className="font-normal text-zinc-500">(min 6 characters)</span>
             </label>
             <div className="relative">
-              <Lock size={15} className={`absolute left-3 top-1/2 -translate-y-1/2 ${isDarkMode ? 'text-slate-500' : 'text-slate-400'}`} />
+              <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400" />
               <input
                 id="password"
                 type={showPassword ? 'text' : 'password'}
@@ -154,31 +176,33 @@ export default function Register() {
                 onChange={handleChange}
                 autoComplete="new-password"
                 placeholder="••••••••"
-                className={`w-full rounded-xl border px-4 py-2.5 pl-9 pr-10 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 ${
+                className={`w-full rounded-2xl border px-4 py-3 pl-10 pr-10 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/25 ${
                   errors.password
-                    ? isDarkMode ? 'border-red-500' : 'border-red-500'
-                    : isDarkMode ? 'border-slate-700 bg-slate-800/60 text-white placeholder:text-slate-600' : 'border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400'
+                    ? 'border-red-500'
+                    : isDarkMode
+                    ? 'border-white/[0.08] bg-white/[0.03] text-white placeholder:text-zinc-600'
+                    : 'border-zinc-200 bg-zinc-50 text-zinc-900 placeholder:text-zinc-400'
                 }`}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className={`absolute right-3 top-1/2 -translate-y-1/2 transition-colors ${isDarkMode ? 'text-slate-500 hover:text-slate-300' : 'text-slate-400 hover:text-slate-600'}`}
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-200 transition"
                 aria-label="Toggle password visibility"
               >
-                {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
+                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
               </button>
             </div>
             {errors.password && <p className="text-[11px] text-red-400 font-semibold">{errors.password}</p>}
           </div>
 
           {/* Confirm Password */}
-          <div className="space-y-1">
-            <label htmlFor="confirmPassword" className={`text-xs font-semibold ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+          <div className="space-y-1.5">
+            <label htmlFor="confirmPassword" className="text-xs font-bold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider">
               Confirm Password
             </label>
             <div className="relative">
-              <Lock size={15} className={`absolute left-3 top-1/2 -translate-y-1/2 ${isDarkMode ? 'text-slate-500' : 'text-slate-400'}`} />
+              <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400" />
               <input
                 id="confirmPassword"
                 type={showPassword ? 'text' : 'password'}
@@ -187,47 +211,47 @@ export default function Register() {
                 onChange={handleChange}
                 autoComplete="new-password"
                 placeholder="••••••••"
-                className={`w-full rounded-xl border px-4 py-2.5 pl-9 pr-4 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 ${
+                className={`w-full rounded-2xl border px-4 py-3 pl-10 pr-10 text-sm transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/25 ${
                   errors.confirmPassword
-                    ? isDarkMode ? 'border-red-500' : 'border-red-500'
-                    : isDarkMode ? 'border-slate-700 bg-slate-800/60 text-white placeholder:text-slate-600' : 'border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400'
+                    ? 'border-red-500'
+                    : isDarkMode
+                    ? 'border-white/[0.08] bg-white/[0.03] text-white placeholder:text-zinc-600'
+                    : 'border-zinc-200 bg-zinc-50 text-zinc-900 placeholder:text-zinc-400'
                 }`}
               />
             </div>
-            {errors.confirmPassword && (
-              <p className="text-[11px] text-red-400 font-semibold">{errors.confirmPassword}</p>
-            )}
+            {errors.confirmPassword && <p className="text-[11px] text-red-400 font-semibold">{errors.confirmPassword}</p>}
           </div>
 
           {/* Submit */}
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full flex items-center justify-center gap-2 px-4 py-2.5 mt-2 text-sm font-bold text-white bg-primary hover:bg-primary-dark rounded-xl shadow-md shadow-primary/20 transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed min-h-[44px]"
+            className="w-full flex items-center justify-center gap-2 px-4 py-3 mt-3 text-sm font-bold text-white bg-gradient-to-r from-primary to-primary-dark hover:brightness-110 rounded-2xl shadow-lg shadow-primary/25 transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed min-h-[46px]"
           >
             {isLoading ? (
-              <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
             ) : (
               <>
-                <UserPlus size={15} />
-                Create Account
+                <UserPlus size={16} />
+                <span>Create Free Workspace</span>
               </>
             )}
           </button>
         </form>
 
         {/* Login link */}
-        <p className={`mt-6 text-center text-sm ${isDarkMode ? 'text-slate-500' : 'text-slate-600'}`}>
+        <p className="mt-6 text-center text-xs text-zinc-500 font-medium">
           Already have an account?{' '}
-          <Link to="/login" className="font-semibold text-primary hover:text-primary-light transition-colors">
+          <Link to="/login" className="font-bold text-primary hover:underline transition-colors">
             Sign in
           </Link>
         </p>
       </div>
 
       {/* Footer */}
-      <p className={`mt-8 text-[11px] ${isDarkMode ? 'text-slate-700' : 'text-slate-500'}`}>
-        © 2025 Startup CRM Lite. All rights reserved.
+      <p className="mt-8 text-[11px] text-zinc-600 dark:text-zinc-500 font-medium relative z-10">
+        © 2026 Startup CRM Lite • Intelligent Sales Platform
       </p>
     </div>
   );

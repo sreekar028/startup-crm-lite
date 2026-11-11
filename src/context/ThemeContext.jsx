@@ -3,124 +3,124 @@ import useLocalStorage from '../hooks/useLocalStorage';
 
 export const THEMES = [
   {
-    id: 'blue',
-    name: 'Ocean Blue',
-    primary: '#2563EB',
-    dark: '#1D4ED8',
-    light: '#3B82F6',
-    preview: '#2563EB',
-    tag: 'Classic SaaS',
+    id: 'indigo',
+    name: 'Electric Indigo',
+    primary: '#6366F1',
+    dark: '#4F46E5',
+    light: '#818CF8',
+    preview: '#6366F1',
+    tag: 'Neo-SaaS Cyber (Default)',
   },
   {
     id: 'emerald',
-    name: 'Emerald Mint',
-    primary: '#059669',
-    dark: '#047857',
-    light: '#10B981',
-    preview: '#059669',
+    name: 'Neon Emerald',
+    primary: '#10B981',
+    dark: '#059669',
+    light: '#34D399',
+    preview: '#10B981',
     tag: 'Growth & Fintech',
-  },
-  {
-    id: 'purple',
-    name: 'Royal Violet',
-    primary: '#7C3AED',
-    dark: '#6D28D9',
-    light: '#8B5CF6',
-    preview: '#7C3AED',
-    tag: 'Creative & Tech',
-  },
-  {
-    id: 'amber',
-    name: 'Sunset Amber',
-    primary: '#D97706',
-    dark: '#B45309',
-    light: '#F59E0B',
-    preview: '#D97706',
-    tag: 'Warm & Vibrant',
-  },
-  {
-    id: 'rose',
-    name: 'Rose Crimson',
-    primary: '#E11D48',
-    dark: '#BE123C',
-    light: '#F43F5E',
-    preview: '#E11D48',
-    tag: 'Bold & Premium',
   },
   {
     id: 'cyan',
     name: 'Cyber Cyan',
-    primary: '#0891B2',
-    dark: '#0E7490',
-    light: '#06B6D4',
-    preview: '#0891B2',
-    tag: 'Futuristic Neon',
+    primary: '#06B6D4',
+    dark: '#0891B2',
+    light: '#22D3EE',
+    preview: '#06B6D4',
+    tag: 'High-Tech Glass',
+  },
+  {
+    id: 'rose',
+    name: 'Sunset Rose',
+    primary: '#F43F5E',
+    dark: '#E11D48',
+    light: '#FB7185',
+    preview: '#F43F5E',
+    tag: 'Bold & Dynamic',
+  },
+  {
+    id: 'amber',
+    name: 'Luminous Amber',
+    primary: '#F59E0B',
+    dark: '#D97706',
+    light: '#FBBF24',
+    preview: '#F59E0B',
+    tag: 'Warm & High-Energy',
+  },
+  {
+    id: 'cobalt',
+    name: 'Royal Cobalt',
+    primary: '#2563EB',
+    dark: '#1D4ED8',
+    light: '#38BDF8',
+    preview: '#2563EB',
+    tag: 'Classic Corporate',
   },
 ];
 
 export const FONTS = [
   {
-    id: 'Inter',
-    name: 'Inter',
-    family: "'Inter', system-ui, -apple-system, sans-serif",
-    description: 'Clean, neutral and ultra-readable default',
-  },
-  {
     id: 'Plus Jakarta Sans',
     name: 'Plus Jakarta Sans',
     family: "'Plus Jakarta Sans', system-ui, -apple-system, sans-serif",
-    description: 'Crisp, contemporary geometric tech aesthetic',
+    description: 'Crisp, contemporary geometric tech aesthetic (Default)',
   },
   {
     id: 'Outfit',
     name: 'Outfit',
-    family: "'Outfit', system-ui, -apple-system, sans-serif",
-    description: 'Modern geometric curves and distinct headings',
+    family: "'Outfit', system-ui, sans-serif",
+    description: 'Futuristic geometric curves and sleek headings',
+  },
+  {
+    id: 'Syne',
+    name: 'Syne',
+    family: "'Syne', system-ui, sans-serif",
+    description: 'High-end avant-garde design & striking titles',
+  },
+  {
+    id: 'Space Grotesk',
+    name: 'Space Grotesk',
+    family: "'Space Grotesk', system-ui, sans-serif",
+    description: 'Cyberpunk inspired proportioned tech typography',
   },
   {
     id: 'Poppins',
     name: 'Poppins',
-    family: "'Poppins', system-ui, -apple-system, sans-serif",
-    description: 'Friendly, geometric and open styling',
-  },
-  {
-    id: 'Roboto',
-    name: 'Roboto',
-    family: "'Roboto', system-ui, -apple-system, sans-serif",
-    description: 'Balanced mechanical skeleton with smooth curves',
+    family: "'Poppins', system-ui, sans-serif",
+    description: 'Friendly, geometric and smooth rounded styling',
   },
   {
     id: 'JetBrains Mono',
     name: 'JetBrains Mono',
     family: "'JetBrains Mono', monospace",
-    description: 'Developer monospace with high character distinction',
+    description: 'Developer monospace with high distinction',
   },
 ];
 
 export const FONT_SIZES = [
   {
     id: 'sm',
-    label: 'Small',
+    label: 'Compact',
     size: '14px',
-    desc: 'Dense (87.5%)',
+    desc: 'Dense View (87.5%)',
   },
   {
     id: 'md',
-    label: 'Medium',
+    label: 'Modern',
     size: '16px',
-    desc: 'Default (100%)',
+    desc: 'Default Scale (100%)',
   },
   {
     id: 'lg',
-    label: 'Large',
-    size: '18px',
-    desc: 'Spacious (112.5%)',
+    label: 'Comfort',
+    size: '17.5px',
+    desc: 'Enhanced Readability (110%)',
   },
   {
     id: 'xl',
-    label: 'Extra Large',
-    size: '20px',
-    desc: 'Accessible (125%)',
+    label: 'Spacious',
+    size: '19px',
+    desc: 'Large / Accessible (120%)',
   },
 ];
 
@@ -132,8 +132,11 @@ const ThemeContext = createContext(null);
  */
 export function ThemeProvider({ children }) {
   const [isDarkMode, setIsDarkMode] = useLocalStorage('startup-crm-theme', true);
-  const [colorTheme, setColorTheme] = useLocalStorage('startup-crm-color-theme', 'blue');
-  const [fontFamily, setFontFamily] = useLocalStorage('startup-crm-font', 'Inter');
+  // Default to the new 'indigo' theme palette
+  const [colorTheme, setColorTheme] = useLocalStorage('startup-crm-color-theme', 'indigo');
+  // Default to the new 'Plus Jakarta Sans' font
+  const [fontFamily, setFontFamily] = useLocalStorage('startup-crm-font', 'Plus Jakarta Sans');
+  // Default font size scale
   const [fontSize, setFontSize] = useLocalStorage('startup-crm-font-size', 'md');
 
   // Synchronize CSS variables and classes on document root
@@ -144,11 +147,13 @@ export function ThemeProvider({ children }) {
     root.classList.toggle('dark', isDarkMode);
     root.style.colorScheme = isDarkMode ? 'dark' : 'light';
 
-    // 2. Active theme colors
-    const activeTheme = THEMES.find((t) => t.id === colorTheme) || THEMES[0];
+    // 2. Active theme colors (handle legacy 'blue' by falling back to indigo)
+    const normalizedThemeId = colorTheme === 'blue' ? 'indigo' : colorTheme;
+    const activeTheme = THEMES.find((t) => t.id === normalizedThemeId) || THEMES[0];
     root.style.setProperty('--brand-primary', activeTheme.primary);
     root.style.setProperty('--brand-primary-dark', activeTheme.dark);
     root.style.setProperty('--brand-primary-light', activeTheme.light);
+    root.style.setProperty('--brand-primary-glow', `${activeTheme.primary}40`);
     root.setAttribute('data-theme', activeTheme.id);
 
     // 3. Active font family
@@ -157,7 +162,7 @@ export function ThemeProvider({ children }) {
     document.body.style.fontFamily = activeFont.family;
     root.setAttribute('data-font', activeFont.id);
 
-    // 4. Active font size (scales all rem units)
+    // 4. Active font size (scales all rem units proportionally)
     const activeSize = FONT_SIZES.find((s) => s.id === fontSize) || FONT_SIZES[1];
     root.style.setProperty('--app-font-size', activeSize.size);
     root.style.fontSize = activeSize.size;

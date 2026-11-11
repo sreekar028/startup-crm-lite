@@ -21,12 +21,12 @@ export default function App() {
     <>
       {isAuthPage ? (
         /* ── Auth-only layout: no sidebar, no topbar ── */
-        <div className={isDarkMode ? 'min-h-screen bg-slate-950 text-slate-100' : 'min-h-screen bg-slate-50 text-slate-900'}>
+        <div className={`min-h-screen ${isDarkMode ? 'bg-[#09090d] text-zinc-100' : 'bg-[#f8fafc] text-zinc-900'}`}>
           <AppRoutes />
         </div>
       ) : (
         /* ── Main App layout ── */
-        <div className={`flex min-h-screen ${isDarkMode ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
+        <div className={`flex min-h-screen ${isDarkMode ? 'bg-[#09090d] text-zinc-100' : 'bg-[#f8fafc] text-zinc-900'}`}>
           {/* Sidebar (drawer on mobile, side navigation on tablet+) */}
           <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
@@ -43,23 +43,25 @@ export default function App() {
             </main>
 
             {/* Footer */}
-            <footer className={`border-t px-6 py-4 text-center mb-16 md:mb-0 ${isDarkMode ? 'border-slate-800 text-slate-500' : 'border-slate-200 text-slate-500'}`}>
-              <p className="text-[11px]">
-                © 2025 Start Up CRM Lite. All rights reserved.
+            <footer className={`border-t px-6 py-4 text-center mb-16 md:mb-0 ${isDarkMode ? 'border-white/[0.06] text-zinc-500' : 'border-zinc-200 text-zinc-500'}`}>
+              <p className="text-[11px] tracking-wide font-medium">
+                © 2026 Startup CRM Lite • AI-Powered Sales Platform
               </p>
             </footer>
           </div>
 
           {/* Mobile Bottom Navigation Bar */}
           <div
-            className={`fixed bottom-0 left-0 right-0 z-40 md:hidden flex h-16 items-center justify-around border-t ${isDarkMode ? 'border-slate-800 bg-slate-900' : 'border-slate-200 bg-white'}`}
+            className={`fixed bottom-0 left-0 right-0 z-40 md:hidden flex h-16 items-center justify-around border-t backdrop-blur-xl ${
+              isDarkMode ? 'border-white/[0.08] bg-[#0c0c14]/90' : 'border-zinc-200 bg-white/90'
+            }`}
           >
             <NavLink
               to="/"
               end
               className={({ isActive }) =>
                 `flex h-full w-full flex-col items-center justify-center transition-colors ${
-                  isActive ? 'text-primary' : isDarkMode ? 'text-slate-400 hover:text-white' : 'text-slate-500 hover:text-slate-900'
+                  isActive ? 'text-primary' : isDarkMode ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'
                 }`
               }
               aria-label="Navigate to Dashboard"
@@ -71,7 +73,7 @@ export default function App() {
               to="/leads"
               className={({ isActive }) =>
                 `flex h-full w-full flex-col items-center justify-center transition-colors ${
-                  isActive ? 'text-primary' : isDarkMode ? 'text-slate-400 hover:text-white' : 'text-slate-500 hover:text-slate-900'
+                  isActive ? 'text-primary' : isDarkMode ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'
                 }`
               }
               aria-label="Navigate to Leads Management"
@@ -83,7 +85,7 @@ export default function App() {
               to="/analytics"
               className={({ isActive }) =>
                 `flex h-full w-full flex-col items-center justify-center transition-colors ${
-                  isActive ? 'text-primary' : isDarkMode ? 'text-slate-400 hover:text-white' : 'text-slate-500 hover:text-slate-900'
+                  isActive ? 'text-primary' : isDarkMode ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'
                 }`
               }
               aria-label="Navigate to Analytics Overview"
@@ -95,7 +97,7 @@ export default function App() {
               to="/profile"
               className={({ isActive }) =>
                 `flex h-full w-full flex-col items-center justify-center transition-colors ${
-                  isActive ? 'text-primary' : isDarkMode ? 'text-slate-400 hover:text-white' : 'text-slate-500 hover:text-slate-900'
+                  isActive ? 'text-primary' : isDarkMode ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'
                 }`
               }
               aria-label="Navigate to Profile"
@@ -107,19 +109,21 @@ export default function App() {
         </div>
       )}
 
-      {/* Toast notifications — always rendered */}
+      {/* Toast notifications */}
       <Toaster
         position="top-right"
         toastOptions={{
           style: {
-            background: '#0D1533',
-            color: '#F1F5F9',
-            border: '1px solid #1A2850',
-            borderRadius: '12px',
+            background: isDarkMode ? '#12121a' : '#FFFFFF',
+            color: isDarkMode ? '#F4F4F5' : '#09090B',
+            border: isDarkMode ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid #E4E4E7',
+            borderRadius: '16px',
             fontSize: '13px',
             fontWeight: 600,
+            boxShadow: '0 20px 40px -8px rgba(0,0,0,0.3)',
+            backdropFilter: 'blur(16px)',
           },
-          success: { style: { borderLeft: '4px solid #22C55E' } },
+          success: { style: { borderLeft: '4px solid #10B981' } },
           error: { style: { borderLeft: '4px solid #EF4444' } },
         }}
       />
